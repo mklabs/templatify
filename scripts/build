@@ -1,0 +1,78 @@
+#!/usr/bin/env node
+
+// old and first version of the build, now rewritten as a set of grunt tasks / helpers
+//
+// use it if you don't want grunt.
+
+var fs = require('fs'),
+  nopt = require('nopt'),
+  path = require('path'),
+  browserify = require('browserify'),
+  templatify = require('./templatify');
+
+var opts = nopt(),
+  argv = opts.argv.remain,
+  entry = path.resolve(argv[0] || './mockup/assets/js/application.js'),
+  out = path.resolve(argv[1] || './mockup/assets/js/app.browser.js');
+
+delete opts.argv;
+
+var b = browserify(opts);
+
+b.register('index.js', function(body, file) {
+  var dirname = path.dirname(file),
+    memo = 'var autoload = module.exports;';
+
+  fs.readdirSync(dirname).forEach(function(f) {
+    var ext = path.extname(f),
+      name = f.replace(ext, ''),
+      capitalized = name[0].toUpperCase() + name.slice(1);
+
+    if(!ext || f === path.basename(file)) return;
+    if(!~b.extensions.indexOf(ext)) return;
+    var content = fs.readFileSync(path.resolve(dirname, f), 'utf8');
+    memo += 'autoload["' + camelcase((/module\.exports/).test(content) ? capitalized : name) + '"] = require("./' + f + '");';
+  });
+
+  return memo;
+});
+
+b.register('backbone.js', function(body, file) {
+  var reg = /\}\)\.call\(this\);/;
+  return body.replace(reg, '}).call(window);');
+});
+
+/* */
+b.register('post', function(body, file) {
+  return [
+    //'(function() {',
+    '// process.env overrides for cfg.js',
+    'if(typeof process === "undefined") process = {};',
+    'process.env = process.env || {};',
+    'process.argv = process.argv || [];',
+    'process.env.NODE_ENV = "' + (process.env.NODE_ENV || 'prod') + '";',
+    '',
+    body,
+    //'})();'
+  ].join('\n\n');
+});
+/* */
+
+
+b.use(templatify('./mockup/pages', {
+  files: ['explore/**/*.html', 'explore/*.html', '**/sidebar.html', '**/layouts.*'],
+  entry: entry
+}));
+
+b.addEntry(entry);
+require('fs').writeFileSync(out, b.bundle());
+console.log('Wrote content to ', out);
+
+// Came-case the given "str"
+function camelcase(str) {
+  return str.split(/[-\[\]]/).map(function(str, i){
+    return i && str[0]
+      ? str[0].toUpperCase() + str.slice(1)
+      : str;
+  }).join('');
+}
