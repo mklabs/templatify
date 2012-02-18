@@ -4,6 +4,10 @@
   "description": "Middleware for browserify to load non-js files template as precompiled handlebar template",
   "version": "0.0.1",
   "main": "lib/templatify",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mklabs/templatify.git"
+  },
   "dependencies": {
     "glob": "~3.0.1",
     "handlebars": "~1.0.5beta",
