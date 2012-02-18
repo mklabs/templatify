@@ -54,8 +54,6 @@ vows.describe("Helpers").addBatch({
       var icon = c.require('helper:icon');
       assert.equal(icon('home'), '<i class="icon icon-home"></i>');
       assert.equal(icon(), '<i class="icon icon-star"></i>');
-    },
-
-    "": function() {}
+    }
   }
 }).export(module);
