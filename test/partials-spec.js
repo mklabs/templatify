@@ -10,7 +10,7 @@ var fs = require('fs'),
 vows.describe("Partials").addBatch({
   "when used within templates": {
     topic: function() {
-      var src = browserify()
+      var src = browserify({ cache: helpers.CACHE })
         .use(templatify(path.join(__dirname, 'fixtures'), { files: ['*.html', 'partials/*.html'] }))
         .bundle();
 

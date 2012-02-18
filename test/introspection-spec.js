@@ -11,7 +11,7 @@ var silent = true;
 vows.describe("Template introspection").addBatch({
   "in debug mode, each precompiled template": {
     topic: function() {
-      var src = browserify()
+      var src = browserify({ cache: helpers.CACHE })
         .use(templatify(path.join(__dirname, 'fixtures'), {
           files: ['*.html', 'partials/*.html'],
           helpers: ['**/*.js']
