@@ -19,7 +19,7 @@ vows.describe("Partials").addBatch({
       this.callback(null, c, src);
     },
 
-    "should register appropriately": function (err, c, src) {
+    "should register appropriately and return the correct output": function (err, c, src) {
       assert.ifError(err);
 
       assert.ok(c.require.modules.handlebars, 'should handlebars runtime module be registered');
