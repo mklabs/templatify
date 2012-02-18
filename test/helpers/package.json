@@ -1,0 +1,16 @@
+{
+  "author": "mklabs",
+  "name": "vows-helpers",
+  "description": "Set of vows helpers with maybe some useful stuff in there",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mklabs/test.git"
+  },
+  "main": "helpers",
+  "engines": {
+    "node": "~0.6.1"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
