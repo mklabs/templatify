@@ -8,12 +8,6 @@ Middleware for browserify to load non-js files as precompiled handlebar template
 Most of the code base and featureset ot this plugin is based and inspired on
 [require-handlebars-plugin](https://github.com/SlexAxton/require-handlebars-plugin).
 
-**includes**
-
-* Partials / Helpers
-* Introspection
-* Adapter for handlebars (default) and undescore.
-
 ## Usage
 
 ```javascript
