@@ -26,16 +26,17 @@ var bundle = browserify()
   }))
   .bundle();
 
-console.log(bundle.bundle());
+console.log(bundle);
+
 // write output to `templates.js`
 require('fs').writeFileSync('./templates.js', bundle);
 
 // Use underscore adapater instead of handlebars default one
 var bundle = browserify()
-  .use(templatify( { adapter: templatify.adapters.underscore ))
+  .use(templatify('./', { adapter: templatify.adapters.underscore }))
   .bundle();
 
-console.log(bundle.bundle());
+console.log(bundle);
 ```
 
 Write a template ( path: `app/template/one.html` ):
@@ -176,19 +177,6 @@ The metadata object at the top of the file (if it exists): {}
 Note: All of these go away after a build if the debug options is set to
 false (defaults to `true`) 
 
-## Other Templating Languages
-
-If you'd like to implement this for your templating language of choice, you'll need:
-
-* A pre-compile type functionality.
-* If it has some concept of partials, that you can register them externally
-* For any of the meta-data, you'll need some fancy regex or an AST to walk through.
-
-Other templates might be implemented by droping a folder into
-`lib/templates` which name is the template adapter to use. This folder
-must be a valid npm package, either by droping here an `index.js` or a
-complete package with its own `package.json`.
-
 ## Options
 
 ```javascript
@@ -284,11 +272,6 @@ backbone-boilerplate.
 
 Using browerify,
 [node-fileify](https://github.com/substack/node-fileify) which is a
-really neat tool can be used to
-achieve that, however it simply returns 
-
-Using browerify,
-[node-fileify](https://github.com/substack/node-fileify) which is a
 really neat tool can be used to achieve that, however it simply returns
 html strings into an hash object with keys as filename.
 
@@ -297,6 +280,20 @@ precompiled template and try to be as close as possible to all the
 really cool features that 
 [require-handlebars-plugin](https://github.com/SlexAxton/require-handlebars-plugin)
 offers (like18n helpers, partials, custom helpers, metadata, introspection...).
+
+## Other Templating Languages
+
+If you'd like to implement this for your templating language of choice, you'll need:
+
+* A pre-compile type functionality.
+* If it has some concept of partials, that you can register them externally
+* For any of the meta-data, you'll need some fancy regex or an AST to walk through.
+
+Other templates might be implemented by droping a folder into
+`lib/templates` which name is the template adapter to use. This folder
+must be a valid npm package, either by droping here an `index.js` or a
+complete package with its own `package.json`.
+
 
 ## Install
 
