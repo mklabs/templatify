@@ -1,7 +1,7 @@
 
 # templatify
 
-Middleware for browserify to load non-js files as precompiled handlebar (or undescore) templates.
+Middleware for browserify to load non-js files as precompiled handlebars (or underscore) templates.
 
 [![Build Status](https://secure.travis-ci.org/mklabs/templatify.png)](http://travis-ci.org/mklabs/templatify)
 
