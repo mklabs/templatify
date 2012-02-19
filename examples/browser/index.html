@@ -1,0 +1,87 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Templatify demo</title>
+  <meta name="description" content="Templatify example">
+  <meta name="viewport" content="width=device-width">
+  
+  <link rel="stylesheet" href="./css/style.css">
+  <style>
+    html { 
+      color: #444;
+    }
+
+    h1.top {
+      padding-top: 1em;
+    }
+
+    .result {
+      padding: 2em;
+      border: 
+    }
+
+    code .keyword              { font-weight: bold }
+    code .var                  { font-weight: #bada55 }
+    code .string, code .regexp { color: green }
+    code .class, code .special { color: blue }
+    code .number               { color: pink }
+    code .comment              { color: grey }
+  </style>
+</head>
+<body>
+  <div role="main" class="container">
+    <div class="row">
+      <h1 class="top">Demo</h1>
+      <div class="span6">
+<pre><code class="html">
+&lt;div class="entry"&gt;
+  &lt;h1&gt;{{title}}&lt;/h1&gt;
+  &lt;div class="body"&gt;
+    {{body}}
+
+    {{> app_partials_icon }}
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+      </div>
+      <div class="span6">
+        <pre><code class="data">{
+  title: 'Templatify',
+  body: 'body content'
+}</code></pre>
+      </div>
+    </div>
+
+    <div class="row">
+      <h3>Result</h3>
+      <div class="span6">
+        <pre><code class="result"></code></pre>
+      </div>
+      <div class="span6">
+        <div class="result well"></div>
+      </div>
+    </div>
+
+  </div>
+  <footer></footer>
+
+  <script src="./js/libs/hijs.js"></script>
+  <script src="./templatified.js"></script>
+  <script>
+    (function() {
+      var result = document.querySelectorAll('.result');
+      var template = require('app/foobar'),
+        data = { title: 'Templatify', body: 'body content' };
+
+      var html = template(data).trim();
+      result[0].outerHTML = html.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      result[1].innerHTML = html;
+    })();
+  </script>
+</body>
+</html>
