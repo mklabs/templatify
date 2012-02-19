@@ -123,10 +123,10 @@ The system will:
   directory
 * register each module as handlebars helper.
 * register each module as browserify module available through
-  `helpers:basename`
+  `helper:basename`
 
 ```javascript
-var yeller = require('helpers:yeller'),
+var yeller = require('helper:yeller'),
   assert = require('assert');
 
 assert.equal(yeller('maoow'), 'MAOOW');
