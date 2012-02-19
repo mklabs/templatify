@@ -8,7 +8,35 @@ Middleware for browserify to load non-js files as precompiled handlebar template
 Most of the code base and featureset ot this plugin is based and inspired on
 [require-handlebars-plugin](https://github.com/SlexAxton/require-handlebars-plugin).
 
+**includes**
+
+* Partials / Helpers
+* Introspection
+* Adapter for handlebars (default) and undescore.
+
 ## Usage
+
+```javascript
+var templatify = require('templatify');
+
+var bundle = browserify()
+  .use(templatify('./', {
+    files: ['**/*.html'],
+    helpers: ['**/*.js']
+  }))
+  .bundle();
+
+console.log(bundle.bundle());
+// write output to `templates.js`
+require('fs').writeFileSync('./templates.js', bundle);
+
+// Use underscore adapater instead of handlebars default one
+var bundle = browserify()
+  .use(templatify( { adapter: templatify.adapters.underscore ))
+  .bundle();
+
+console.log(bundle.bundle());
+```
 
 Write a template ( path: `app/template/one.html` ):
 
@@ -16,7 +44,7 @@ Write a template ( path: `app/template/one.html` ):
 <div class="entry">
   <h1>{{title}}</h1>
   <div class="body">
-    This is my {{ adjective }} template.
+    {{ body }}
 
     {{! To include a partial: }}
     {{! Use underscores instead of slashes in your path, }}
@@ -32,7 +60,6 @@ Here's the partial (optional) ( path : `app/template/partial.html` )
 
 ```html
 <div>
-
   {{! This can obviously have it's own partials, etc, etc }}
   I am a partial
 </div>
@@ -59,10 +86,12 @@ And then the output into `body` would be as follows:
 </div>
 ```
 
+
+
 ## Partials
 
 To include a partial, use underscore instead of slashes in the path
-without file extnesion.
+without file extension.
 
     {{> app_template_partial }}
 
@@ -94,6 +123,7 @@ Then in your templates, you can just do:
 ```
 
 The system will:
+
 * make sure these modules are pulled in automatically from the `dirname`
   directory
 * register each module as handlebars helper.
@@ -161,7 +191,12 @@ complete package with its own `package.json`.
 
 ## Options
 
-    templatify(dirname, options);
+```javascript
+var browserify = require('browserify'),
+  templatify = require('templatify');
+
+templatify(dirname, options);
+```
 
 `dirname` is the base working directory. Defaults to `$cwd`.
 
@@ -263,16 +298,34 @@ really cool features that
 [require-handlebars-plugin](https://github.com/SlexAxton/require-handlebars-plugin)
 offers (like18n helpers, partials, custom helpers, metadata, introspection...).
 
-
 ## Install
 
     npm install templatify
+
+Append a `-g` flag if you intend to use the cli tool described below.
+
+## CLI Usage
+
+
+    Usage: 
+
+       templatify files* [options]
+
+
+    Options:
+       -o, --output    Output file, output to stdout if ommited
+       -h, --helpers   Glob patterns for helper inclusion, usually js files (**/*.js)
+       -c, --compress  Uglify bundle output (false)
+       -a, --adapter   Template adapter to use, handlebars or underscore (handlebars)
+       --help          You're starting at it
 
 ## Tests
 
     npm tests
 
 ## Credits
+
+And special thanks to
 
 * @SlexAxton: Most of the inspiration for this package and the code base for
   ast traversal is based off the fantastic AMD plugin
