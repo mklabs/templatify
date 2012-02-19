@@ -64,7 +64,7 @@ Then require your templates like so:
 
 ```javascript
 var tmpl = require('app/template/one');
-document.body.innerHTML = tmpl({ adjective: 'favorite' });
+document.body.innerHTML = tmpl({ title: 'templatify', body: '☺' });
 ```
 
 And then the output into `body` would be as follows:
@@ -318,10 +318,10 @@ Append a `-g` flag if you intend to use the cli tool described below.
 
 And special thanks to
 
-* @SlexAxton: Most of the inspiration for this package and the code base for
+* **@SlexAxton**: Most of the inspiration for this package and the code base for
   ast traversal is based off the fantastic AMD plugin
   [require-handlebars-plugin](https://github.com/SlexAxton/require-handlebars-plugin).
 
-* @substack: Reading through [node-fileify](https://github.com/substack/node-fileify) sources was
+* **@substack**: Reading through [node-fileify](https://github.com/substack/node-fileify) sources was
   super handy. And of course, for creating browserify :p
 
