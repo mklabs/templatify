@@ -1,7 +1,7 @@
 
 # templatify
 
-Middleware for browserify to load non-js files as precompiled handlebar templates.
+Middleware for browserify to load non-js files as precompiled handlebar (or undescore) templates.
 
 [![Build Status](https://secure.travis-ci.org/mklabs/templatify.png)](http://travis-ci.org/mklabs/templatify)
 
@@ -121,8 +121,8 @@ The system will:
 
 * make sure these modules are pulled in automatically from the `dirname`
   directory
-* register each module as handlebars helper.
-* register each module as browserify module available through
+* register each module as an handlebars helper.
+* register each module as a browserify module available through
   `helper:basename`
 
 ```javascript
@@ -161,11 +161,11 @@ console.log([
 
 // Output..
 
-Variables referenced in this template: title, body
-Vars/Partials/templates that this file directly depends on: {"vars":["title","body"],"helpers":[],"partials":["app_template_partial"]}
-Helpers that this template directly depends on: []
-Partials that this template directly depends on: ["app_template_partial"]
-The metadata object at the top of the file (if it exists): {}
+// Variables referenced in this template: title, body
+// Vars/Partials/templates that this file directly depends on: {"vars":["title","body"],"helpers":[],"partials":["app_template_partial"]}
+// Helpers that this template directly depends on: []
+// Partials that this template directly depends on: ["app_template_partial"]
+// The metadata object at the top of the file (if it exists): {}
 ```
 
 Note: All of these go away after a build if the debug options is set to
@@ -184,15 +184,16 @@ templatify(dirname, options);
 
 ### files
 
-Glob pattern as string or array of strings for template files within `dirname`.
-Each match is then registered as an handlebar template and available
-through `require('path/to/template')`.
+Glob pattern as string or array of strings for template files within
+`dirname`.  Each match is then registered as an handlebar template and
+available through `require('path/to/template')`.
 
 Defaults to `**/*.html`.
 
 ### helpers
 
-Glob pattern as string or array of strings for handlebars helpers within `dirname`.
+Glob pattern as string or array of strings for handlebars helpers within
+`dirname`.
 
 Defaults to `**/*.js`
 
@@ -277,11 +278,14 @@ offers (like18n helpers, partials, custom helpers, metadata, introspection...).
 
 ## Other Templating Languages
 
-If you'd like to implement this for your templating language of choice, you'll need:
+If you'd like to implement this for your templating language of choice,
+you'll need:
 
 * A pre-compile type functionality.
-* If it has some concept of partials, that you can register them externally
-* For any of the meta-data, you'll need some fancy regex or an AST to walk through.
+* If it has some concept of partials, that you can register them
+  externally
+* For any of the meta-data, you'll need some fancy regex or an AST to
+  walk through.
 
 Other templates might be implemented by droping a folder into
 `lib/templates` which name is the template adapter to use. This folder
@@ -310,7 +314,7 @@ Append a `-g` flag if you intend to use the cli tool described below.
        -a, --adapter   Template adapter to use, handlebars or underscore (handlebars)
        --help          You're starting at it
 
-## Tests
+## Tests - [![Build Status](https://secure.travis-ci.org/mklabs/templatify.png)](http://travis-ci.org/mklabs/templatify)
 
     npm tests
 
@@ -318,10 +322,11 @@ Append a `-g` flag if you intend to use the cli tool described below.
 
 And special thanks to
 
-* **@SlexAxton**: Most of the inspiration for this package and the code base for
-  ast traversal is based off the fantastic AMD plugin
+* **@SlexAxton**: Most of the inspiration for this package and the code
+  base for ast traversal is based off the fantastic AMD plugin
   [require-handlebars-plugin](https://github.com/SlexAxton/require-handlebars-plugin).
 
-* **@substack**: Reading through [node-fileify](https://github.com/substack/node-fileify) sources was
+* **@substack**: Reading through
+  [node-fileify](https://github.com/substack/node-fileify) sources was
   super handy. And of course, for creating browserify :p
 
