@@ -1,0 +1,16 @@
+{
+  "author": "mklabs",
+  "name": "templatify-hogan-adapter",
+  "description": "Templatify adapter for hogan.js",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mklabs/templatify.git"
+  },
+  "main": "lib/hogan",
+  "engines": {
+    "node": "~0.6.1"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
