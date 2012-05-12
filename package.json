@@ -2,7 +2,7 @@
   "author": "mklabs",
   "name": "templatify",
   "description": "Middleware for browserify to load non-js files template as precompiled handlebar template",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "lib/templatify",
   "bin": "bin/templatify",
   "repository": {
