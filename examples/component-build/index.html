@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Componen-build example</title>
+  <link rel="stylesheet" href="build/build.css" />
+  <style>
+  .main {
+    padding: 50px;
+    font-size: 14px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #353535;
+  }
+
+  .main h2 {
+    color: #cecece;
+  }
+  </style>
+</head>
+<body class="main">
+
+  <div class="hbs"></div>
+
+  <div class="hogan"></div>
+
+  <script src="build/build.js"></script>
+  <script>require('example').init({ modules: Object.keys(require.modules) });</script>
+</body>
+</html>

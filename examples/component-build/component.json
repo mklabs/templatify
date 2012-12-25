@@ -1,0 +1,17 @@
+{
+  "name": "example",
+  "repo": "example/app",
+  "description": "",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "kelonye/handlebars.js": "*"
+  },
+  "development": {},
+  "main": "scripts/main.js",
+  "scripts": [
+    "scripts/main.js",
+    "template.js",
+    "hogan.js"
+  ]
+}
