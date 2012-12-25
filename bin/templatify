@@ -1,40 +1,26 @@
 #!/usr/bin/env node
 
-var fs = require('fs'),
-  nopt = require('nopt'),
-  path = require('path'),
-  browserify = require('browserify'),
-  templatify = require('..');
+var path = require('path');
+var http = require('http');
+var nopt = require('nopt');
 
-// options
-var options = { output: String, helpers: String, compress: Boolean, adapter: String, help: Boolean },
-  shorthands = { o: ['--output'], c: ['--compress'], h: ['--helpers'], a: ['--adapter'] },
-  opts = nopt(options, shorthands),
-  files = opts.argv.remain,
-  out = path.resolve(opts.output);
+var compiler = require('./templates/compiler');
 
-if(opts.help || !files.length) return console.log([
-  'Usage: ',
-  '',
-  '   templatify files* [options]',
-  '', '',
-  'Options:',
-  '   -o, --output    Output file, output to stdout if ommited',
-  '   -h, --helpers   Glob patterns for helper inclusion, usually js files (**/*.js)',
-  '   -c, --compress  Uglify bundle output (false)',
-  '   -a, --adapter   Template adapter to use, handlebars or underscore (handlebars)',
-  "   --help          You're starting at it",
-  ''
-].join('\n'));
+var opts = nopt({
+  prefix: String,
+  hold: String
+});
 
-var bundle = browserify()
-  .use(templatify('./', {
-    files: files,
-    helpers: opts.helpers || ['**/*.js'],
-    adapter: templatify.adapters[opts.adapter || 'handlebars']
-  }))
-  .bundle();
+var files = opts.argv.remain;
+if(!files.length) throw new Error('You need to provide the list of files to compile.');
 
-if(!opts.output) return console.log(bundle);
-fs.writeFileSync(out, bundle);
-console.log('File ', path.basename(out), 'generated to ', out);
+opts.files = files;
+opts.hold = opts.hold || 'JST';
+
+compiler(opts)
+  .engine('jst', compiler.engines.underscore)
+  .engine('html', compiler.engines.underscore)
+  .directory(function(err) {
+    if(err) throw err;
+    console.error('... Done ...');
+  });

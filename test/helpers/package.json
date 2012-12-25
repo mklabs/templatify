@@ -1,9 +1,0 @@
-{
-  "author": "mklabs",
-  "name": "vows-helpers",
-  "description": "Set of vows helpers with maybe some useful stuff in there",
-  "version": "0.0.1",
-  "main": "helpers",
-  "dependencies": {},
-  "devDependencies": {}
-}
