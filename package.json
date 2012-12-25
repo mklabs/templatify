@@ -3,14 +3,15 @@
   "name": "templatify",
   "description": "Templates pre-compilation",
   "version": "0.0.2",
-  "main": "lib/templatify",
+  "main": "lib/compiler",
   "bin": "bin/templatify",
   "repository": {
     "type": "git",
     "url": "git://github.com/mklabs/templatify.git"
   },
   "dependencies": {
-    "fstream": "~0.1.20"
+    "fstream": "~0.1.20",
+    "nopt": "~2.0.0"
   },
   "devDependencies": {
     "mocha": "~1.7.4",

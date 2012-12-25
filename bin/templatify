@@ -4,12 +4,24 @@ var path = require('path');
 var http = require('http');
 var nopt = require('nopt');
 
-var compiler = require('./templates/compiler');
+var compiler = require('..');
 
 var opts = nopt({
   prefix: String,
-  hold: String
+  hold: String,
+  help: Boolean,
+  mode: String,
+  commonjs: Boolean,
+  amd: Boolean,
+  jst: Boolean,
+  require: Array
+}, {
+  h: ['--help']
 });
+
+if(opts.help) {
+  return console.log('Usage: templatify [options] [files...]');
+}
 
 var files = opts.argv.remain;
 if(!files.length) throw new Error('You need to provide the list of files to compile.');
@@ -20,7 +32,9 @@ opts.hold = opts.hold || 'JST';
 compiler(opts)
   .engine('jst', compiler.engines.underscore)
   .engine('html', compiler.engines.underscore)
-  .directory(function(err) {
+  .engine('hbs', compiler.engines.handlebars)
+  .engine('mustache', compiler.engines.hogan)
+  .run(function(err) {
     if(err) throw err;
     console.error('... Done ...');
   });

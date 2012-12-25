@@ -79,4 +79,36 @@ describe('Compiler', function() {
 
   });
 
+  describe('Mode', function() {
+
+    before(function(done) {
+      var ctx = this;
+      fs.readFile('test/fixtures/expected/templates-commonjs.js', 'utf8', function(err, data) {
+        if(err) return done(err);
+        ctx.expected = data;
+        done();
+      });
+    });
+
+    it('can compile in commonjs mode', function(done) {
+      var c = compiler({
+        commonjs: true
+      });
+
+      c.file('test/fixtures/templates/entry.hbs');
+      c.engine('hbs', compiler.engines.handlebars);
+      c.output('test/fixtures/templates-commonjs.js');
+
+      var expected = this.expected;
+      c.run(function(e) {
+        fs.readFile(c._output, 'utf8', function(err, data) {
+          if(err) return done(err);
+          console.log('template:', data);
+          assert.equal(data, expected);
+          done();
+        });
+      });
+    });
+  });
+
 });

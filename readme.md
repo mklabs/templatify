@@ -36,6 +36,7 @@ package.json dependencies.
 ## API
    - [Compiler](#compiler)
      - [compiles down a directory full of template files into a single JavaScript file](#compiler-compiles-down-a-directory-full-of-template-files-into-a-single-javascript-file)
+     - [Mode](#compiler-mode)
 <a name=""></a>
 
 <a name="compiler"></a>
@@ -100,5 +101,29 @@ this.compiler
       done();
     });
   });
+```
+
+<a name="compiler-mode"></a>
+## Mode
+can compile in commonjs mode.
+
+```js
+var c = compiler({
+  commonjs: true
+});
+
+c.file('test/fixtures/templates/entry.hbs');
+c.engine('hbs', compiler.engines.handlebars);
+c.output('test/fixtures/templates-commonjs.js');
+
+var expected = this.expected;
+c.run(function(e) {
+  fs.readFile(c._output, 'utf8', function(err, data) {
+    if(err) return done(err);
+    console.log('template:', data);
+    assert.equal(data, expected);
+    done();
+  });
+});
 ```
 
